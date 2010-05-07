@@ -33,7 +33,6 @@ node[:applications].each do |app_name, data|
 #      }
 #    end
 
-    configure()
 
   end
 
