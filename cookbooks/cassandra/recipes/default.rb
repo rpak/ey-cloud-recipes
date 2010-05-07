@@ -33,7 +33,7 @@ node[:applications].each do |app_name, data|
 #      }
 #    end
 
-    test
+    configure_cassandra
 
   end
 
@@ -41,7 +41,7 @@ end
 
 
 
-def test
+def configure_cassandra
   template File.join("/data/#{app_name}/current",'config', 'cassandra', 'storage-conf.xml') do
       owner node[:owner_name]
       group node[:owner_name]
