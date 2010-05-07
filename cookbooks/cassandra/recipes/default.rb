@@ -24,7 +24,25 @@ node[:applications].each do |app_name, data|
       checksum "6aa1764f76e26fbc9d62b59e2f6a9ab4"
     end
 
-    template File.join("/data/#{app_name}/current",'config', 'cassandra', 'storage-conf.xml') do
+
+
+#    execute "unarchive-and-install-cassandra" do
+#      cwd "/opt"
+#      command %Q{
+#        tar -zxf /tmp/cassandra.tar.gz
+#      }
+#    end
+
+    test
+
+  end
+
+end
+
+
+
+def test
+  template File.join("/data/#{app_name}/current",'config', 'cassandra', 'storage-conf.xml') do
       owner node[:owner_name]
       group node[:owner_name]
       source 'storage-conf.xml.erb'
@@ -32,8 +50,4 @@ node[:applications].each do |app_name, data|
         :app_name => app_name
       })
     end
-  end
-
 end
-
-
