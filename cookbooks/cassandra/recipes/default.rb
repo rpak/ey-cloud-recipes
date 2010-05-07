@@ -17,7 +17,9 @@ node[:applications].each do |app_name, data|
     group node[:owner_name]
     source 'storage-conf.xml.erb'
     variables({
-      :app_name => app_name
+      :app_name => app_name,
+      :instance_role => node[:instance_role],
+      :name => node[:name]
     })
   end
 
