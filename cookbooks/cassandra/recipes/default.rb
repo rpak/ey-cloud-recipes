@@ -10,7 +10,7 @@
 #  action :install
 #end
 
-include_recipe "java"
+
 
 node[:applications].each do |app_name, data|
 
@@ -19,6 +19,7 @@ node[:applications].each do |app_name, data|
 #    package "openjdk-6-jre" do
 #      action :install
 #    end
+    include_recipe "java"
 
     template File.join("/data/#{app_name}/current",'config', 'cassandra', 'storage-conf.xml') do
       owner node[:owner_name]

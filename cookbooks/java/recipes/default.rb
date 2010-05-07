@@ -3,6 +3,6 @@
 # Recipe:: default
 #
 
-package "openjdk-6-jre" do
+package "dev-java/sun-jre-bin" do
   action :install
 end
