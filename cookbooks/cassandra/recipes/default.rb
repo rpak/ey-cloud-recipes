@@ -10,11 +10,17 @@
 #  action :install
 #end
 
-template File.join([APP_DIRECTORY],'config', 'cassandra', 'storage-conf.xml') do
-  owner node[:owner_name]
-  group node[:owner_name]
-  source 'storage-conf.xml.erb'
-  variables({
-    :app_name => app_name
-  })
+node[:applications].each do |app_name, data|
+
+  template File.join("/data/#{app_name}/current",'config', 'cassandra', 'storage-conf.xml') do
+    owner node[:owner_name]
+    group node[:owner_name]
+    source 'storage-conf.xml.erb'
+    variables({
+      :app_name => app_name
+    })
+  end
+
 end
+
+
