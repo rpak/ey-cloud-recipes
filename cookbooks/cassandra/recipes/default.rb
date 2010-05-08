@@ -19,6 +19,7 @@ node[:applications].each do |app_name, data|
     include_recipe "java"
 
     remote_file "/tmp/cassandra.tar.gz" do
+      owner "deploy"
       source "http://apache.mirror.facebook.net/cassandra/0.6.1/apache-cassandra-0.6.1-bin.tar.gz"
       mode "0644"
       checksum "6aa1764f76e26fbc9d62b59e2f6a9ab4"
@@ -33,6 +34,7 @@ node[:applications].each do |app_name, data|
 #      }
 #    end
 
+    configure()
 
   end
 
