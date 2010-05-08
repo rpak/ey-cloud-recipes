@@ -19,22 +19,41 @@ node[:applications].each do |app_name, data|
     include_recipe "java"
 
     remote_file "/tmp/cassandra.tar.gz" do
-      owner "deploy"
+      owner node[:owner_name]
+      group node[:owner_name]
       source "http://apache.mirror.facebook.net/cassandra/0.6.1/apache-cassandra-0.6.1-bin.tar.gz"
       mode "0644"
       checksum "6aa1764f76e26fbc9d62b59e2f6a9ab4"
     end
 
+    execute "unarchive-and-install-cassandra" do
+      cwd "/opt"
+      command %Q{
+        tar -zxf /tmp/cassandra.tar.gz
+      }
+    end
 
+    execute "ensure-permissions-for-cassandra" do
+      cwd "/opt"
+      command %Q{
+        chown -R cassandra/
+      }
+    end
 
-#    execute "unarchive-and-install-cassandra" do
-#      cwd "/opt"
-#      command %Q{
-#        tar -zxf /tmp/cassandra.tar.gz
-#      }
-#    end
+    template File.join("/data/#{app_name}/current",'config', 'cassandra', 'storage-conf.xml') do
+      owner node[:owner_name]
+      group node[:owner_name]
+      source 'storage-conf.xml.erb'
+      variables({
+        :app_name => app_name
+      })
+    end
 
-    configure()
+    execute "cleanup" do
+      command %Q{
+        rm /tmp/cassandra.tar.gz
+      }
+    end
 
   end
 
