@@ -4,7 +4,12 @@ execute "testing" do
   }
 end
 
-require_recipe 'cassandra'
+node[:applications].each do |app_name, data|
+  if node[:instance_role] == 'util' && (node[:name] != nil && node[:name].include?("cass"))
+    require_recipe 'cassandra'
+  end
+end
+
 #require_recipe 'paperclip'
 #require_recipe 'google_analytics'
 #require_recipe 'ssmtp'
