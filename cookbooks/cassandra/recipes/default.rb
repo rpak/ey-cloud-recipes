@@ -55,7 +55,14 @@ node[:applications].each do |app_name, data|
       action :create
     end
 
-    directory "/data/cassandra/logs" do
+    directory "/data/cassandra/commits" do
+      owner node[:owner_name]
+      group node[:owner_name]
+      mode "0640"
+      action :create
+    end
+
+    directory "/var/log/cassandra" do
       owner node[:owner_name]
       group node[:owner_name]
       mode "0640"
