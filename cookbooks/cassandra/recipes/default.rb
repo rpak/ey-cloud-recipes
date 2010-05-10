@@ -36,7 +36,7 @@ node[:applications].each do |app_name, data|
     execute "ensure-permissions-for-cassandra" do
       cwd "/opt"
       command %Q{
-        chown -R cassandra/
+        chown -R #{node[:owner_name]} cassandra/
       }
     end
 
