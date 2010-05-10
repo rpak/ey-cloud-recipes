@@ -1,4 +1,78 @@
 <Storage>
-  <ClusterName><%= @app_name %></ClusterName>
-  <Test>it worked!</Test>
+  <ClusterName><%= @app_name %> cluster</ClusterName>
+  <AutoBootstrap>false</AutoBootstrap>
+
+  <Keyspaces>
+    <Keyspace Name="<%= @env_name %>">
+      <ColumnFamily Name="Environment" CompareWith="LongType" KeysCached="100%" RowsCached="100%" />
+      <ColumnFamily Name="Posts" CompareWith="BytesType" />
+      <ColumnFamily Name="PostsRelationships" ColumnType="Super" CompareWith="BytesType" CompareSubcolumnsWith="BytesType"/>
+      <ColumnFamily Name="UsersRelationships" ColumnType="Super" CompareWith="BytesType" CompareSubcolumnsWith="BytesType"/>
+      <ColumnFamily Name="Timelines" CompareWith="TimeUUIDType" />
+
+      <ReplicaPlacementStrategy>org.apache.cassandra.locator.RackUnawareStrategy</ReplicaPlacementStrategy>
+      <ReplicationFactor>1</ReplicationFactor>
+      <EndPointSnitch>org.apache.cassandra.locator.EndPointSnitch</EndPointSnitch>
+    </Keyspace>
+  </Keyspaces>
+
+  <Authenticator>org.apache.cassandra.auth.AllowAllAuthenticator</Authenticator>
+
+  <Partitioner>org.apache.cassandra.dht.RandomPartitioner</Partitioner>
+
+  <InitialToken></InitialToken>
+
+  <CommitLogDirectory>/data/cassandra/logs/commitlog</CommitLogDirectory>
+
+  <DataFileDirectories>
+      <DataFileDirectory>/data/cassandra/data</DataFileDirectory>
+  </DataFileDirectories>
+
+  <Seeds>
+      <Seed>localhost</Seed>
+  </Seeds>
+
+  <RpcTimeoutInMillis>10000</RpcTimeoutInMillis>
+
+  <CommitLogRotationThresholdInMB>128</CommitLogRotationThresholdInMB>
+
+  <ListenAddress>localhost</ListenAddress>
+
+  <StoragePort>7000</StoragePort>
+
+  <ThriftAddress>localhost</ThriftAddress>
+
+  <ThriftPort>9160</ThriftPort>
+
+  <ThriftFramedTransport>false</ThriftFramedTransport>
+
+  <DiskAccessMode>auto</DiskAccessMode>
+
+  <RowWarningThresholdInMB>512</RowWarningThresholdInMB>
+
+  <SlicedBufferSizeInKB>64</SlicedBufferSizeInKB>
+
+  <FlushDataBufferSizeInMB>32</FlushDataBufferSizeInMB>
+
+  <FlushIndexBufferSizeInMB>8</FlushIndexBufferSizeInMB>
+
+  <ColumnIndexSizeInKB>64</ColumnIndexSizeInKB>
+
+  <MemtableThroughputInMB>64</MemtableThroughputInMB>
+
+  <BinaryMemtableThroughputInMB>256</BinaryMemtableThroughputInMB>
+
+  <MemtableOperationsInMillions>0.3</MemtableOperationsInMillions>
+
+  <MemtableFlushAfterMinutes>60</MemtableFlushAfterMinutes>
+
+  <ConcurrentReads>8</ConcurrentReads>
+
+  <ConcurrentWrites>32</ConcurrentWrites>
+
+  <CommitLogSync>periodic</CommitLogSync>
+
+  <CommitLogSyncPeriodInMS>10000</CommitLogSyncPeriodInMS>
+
+  <GCGraceSeconds>864000</GCGraceSeconds>
 </Storage>
