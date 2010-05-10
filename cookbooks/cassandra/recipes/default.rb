@@ -10,6 +10,7 @@
 #  action :install
 #end
 
+APP_NAME = node[:applications].keys.first
 CASSANDRA_VERSION = "0.6.1"
 CASSANDRA_INSTALL_DIR = "apache-cassandra-#{CASSANDRA_VERSION}"
 CASSANDRA_INSTALL_FILE = "#{CASSANDRA_INSTALL_DIR}-bin.tar.gz"
@@ -42,12 +43,12 @@ execute "ensure-permissions-for-cassandra" do
   }
 end
 
-template File.join("/data/#{app_name}/current",'config', 'cassandra', 'storage-conf.xml') do
+template File.join("/data/#{APP_NAME}/current",'config', 'cassandra', 'storage-conf.xml') do
   owner node[:owner_name]
   group node[:owner_name]
   source 'storage-conf.xml.erb'
   variables({
-    :app_name => app_name
+    :app_name => APP_NAME
   })
 end
 
@@ -58,9 +59,3 @@ end
 #      }
 #      not_if "pgrep -f org.apache.cassandra.service.CassandraDaemon"
 #    end
-
-execute "cleanup" do
-  command %Q{
-    rm /tmp/#{CASSANDRA_INSTALL_FILE}
-  }
-end
