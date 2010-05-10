@@ -48,6 +48,13 @@ node[:applications].each do |app_name, data|
       creates "/opt/#{CASSANDRA_INSTALL_FILE}"
     end
 
+    directory "/data/cassandra" do
+      owner node[:owner_name]
+      group node[:owner_name]
+      mode "0640"
+      action :create
+    end
+
     directory "/data/cassandra/data" do
       owner node[:owner_name]
       group node[:owner_name]
