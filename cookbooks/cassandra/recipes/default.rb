@@ -18,7 +18,7 @@ node[:applications].each do |app_name, data|
 
     include_recipe "java"
 
-    remote_file "/tmp/cassandra.tar.gz" do
+    remote_file "/tmp/apache-cassandra-0.6.1-bin.tar.gz" do
       owner node[:owner_name]
       group node[:owner_name]
       source "http://apache.mirror.facebook.net/cassandra/0.6.1/apache-cassandra-0.6.1-bin.tar.gz"
@@ -29,8 +29,12 @@ node[:applications].each do |app_name, data|
     execute "unarchive-and-install-cassandra" do
       cwd "/opt"
       command %Q{
-        tar -zxf /tmp/cassandra.tar.gz
+        tar -zxf /tmp/apache-cassandra-0.6.1-bin.tar.gz
       }
+    end
+
+    link "/opt/cassandra" do
+      to "/opt/apache-cassandra-0.6.1"
     end
 
     execute "ensure-permissions-for-cassandra" do
