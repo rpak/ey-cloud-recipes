@@ -2,13 +2,6 @@
 # Cookbook Name:: cassandra
 # Recipe:: default
 #
-#package "dev-java/sun-jdk" do
-#  action :install
-#end
-#
-#package "openjdk-6-jre" do
-#  action :install
-#end
 
 APP_NAME = node[:applications].keys.first
 NODE_NAME = node[:name]
