@@ -4,7 +4,9 @@ execute "testing" do
   }
 end
 
-require_recipe 'cassandra'
+if node[:instance_role] == 'util' && (node[:name] != nil && node[:name].include?("cass"))
+  require_recipe 'cassandra'
+end
 
 #require_recipe 'paperclip'
 #require_recipe 'google_analytics'
