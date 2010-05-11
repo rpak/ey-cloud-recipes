@@ -84,9 +84,17 @@ template "/opt/cassandra/conf/storage-conf.xml" do
     :env_name => node[:environment][:name],
     :utility_instance => node[:utility_instances].find {|v| v[:name] == NODE_NAME}
   })
+  notifies :run, resources(:execute => "stop-cassandra"), :immediately
 end
 
-execute "ensure-cassandra-is-running" do
+execute "stop-cassandra" do
+  command %Q{
+    kill `ps -ef | grep cassandra | grep -v grep | awk '{print $2}'`
+  }
+  action :nothing
+end
+
+execute "start-cassandra" do
   returns 1
   command %Q{
     /opt/cassandra/bin/cassandra --host localhost --port 9160
