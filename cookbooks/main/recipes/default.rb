@@ -8,6 +8,10 @@ if node[:instance_role] == 'util' && (node[:name] != nil && node[:name].include?
   require_recipe 'cassandra'
 end
 
+if node[:instance_role].include?("app")
+  require_recipe 'cassandra_client'
+end
+
 #require_recipe 'paperclip'
 #require_recipe 'google_analytics'
 #require_recipe 'ssmtp'
