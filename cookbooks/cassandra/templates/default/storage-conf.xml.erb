@@ -29,18 +29,18 @@
   </DataFileDirectories>
 
   <Seeds>
-      <Seed>localhost</Seed>
+      <Seed><%= @utility_instance[:hostname] %></Seed>
   </Seeds>
 
   <RpcTimeoutInMillis>10000</RpcTimeoutInMillis>
 
   <CommitLogRotationThresholdInMB>128</CommitLogRotationThresholdInMB>
 
-  <ListenAddress>localhost</ListenAddress>
+  <ListenAddress><%= @utility_instance[:hostname] %></ListenAddress>
 
   <StoragePort>7000</StoragePort>
 
-  <ThriftAddress>localhost</ThriftAddress>
+  <ThriftAddress><%= @utility_instance[:hostname] %></ThriftAddress>
 
   <ThriftPort>9160</ThriftPort>
 

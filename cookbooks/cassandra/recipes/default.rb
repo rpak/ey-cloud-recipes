@@ -11,6 +11,7 @@
 #end
 
 APP_NAME = node[:applications].keys.first
+NODE_NAME = node[:name]
 CASSANDRA_VERSION = "0.6.1"
 CASSANDRA_INSTALL_DIR = "apache-cassandra-#{CASSANDRA_VERSION}"
 CASSANDRA_INSTALL_FILE = "#{CASSANDRA_INSTALL_DIR}-bin.tar.gz"
@@ -80,7 +81,8 @@ template "/opt/cassandra/conf/storage-conf.xml" do
   source 'storage-conf.xml.erb'
   variables({
     :app_name => APP_NAME,
-    :env_name => node[:environment][:name]
+    :env_name => node[:environment][:name],
+    :utility_instance => node[:utility_instances].find {|v| v[:name] == NODE_NAME}
   })
 end
 
