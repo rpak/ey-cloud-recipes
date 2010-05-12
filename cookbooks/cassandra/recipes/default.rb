@@ -69,6 +69,7 @@ directory "/var/log/cassandra" do
 end
 
 execute "stop-cassandra" do
+  returns 1
   command %Q{
     kill `ps -ef | grep cassandra | grep -v grep | awk '{print $2}'`
   }
