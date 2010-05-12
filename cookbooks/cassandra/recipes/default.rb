@@ -44,28 +44,28 @@ end
 directory "/data/cassandra" do
   owner node[:owner_name]
   group node[:owner_name]
-  mode "0640"
+  mode "0740"
   action :create
 end
 
 directory "/data/cassandra/data" do
   owner node[:owner_name]
   group node[:owner_name]
-  mode "0640"
+  mode "0740"
   action :create
 end
 
 directory "/data/cassandra/commits" do
   owner node[:owner_name]
   group node[:owner_name]
-  mode "0640"
+  mode "0740"
   action :create
 end
 
 directory "/var/log/cassandra" do
   owner node[:owner_name]
   group node[:owner_name]
-  mode "0640"
+  mode "0740"
   action :create
 end
 
@@ -90,6 +90,7 @@ end
 
 execute "start-cassandra" do
   returns 1
+#  user node[:owner_name]
   command %Q{
     /opt/cassandra/bin/cassandra --host localhost --port 9160
   }

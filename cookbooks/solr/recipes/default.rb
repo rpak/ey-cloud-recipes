@@ -22,14 +22,14 @@ end
 directory "/data/solr" do
   owner node[:owner_name]
   group node[:owner_name]
-  mode "0640"
+  mode "0740"
   action :create
 end
 
 directory "/data/solr/data" do
   owner node[:owner_name]
   group node[:owner_name]
-  mode "0640"
+  mode "0740"
   action :create
 end
 
@@ -72,10 +72,20 @@ template "/opt/apache-tomcat/default/conf/Catalina/localhost/solr.xml" do
   variables({
     :solr_home => "/data/#{APP_NAME}/current/config/solr/"
   })
+end
+
+template "/data/#{APP_NAME}/current/config/solr/solrconfig.xml" do
+  owner node[:owner_name]
+  group node[:owner_name]
+  source 'solrconfig.xml.erb'
+  variables({
+    :data_dir => "/data/solr/data"
+  })
   notifies :run, resources(:execute => "stop-tomcat"), :immediately
 end
 
 execute "start-tomcat" do
+  user node[:owner_name]
   command %Q{
     /opt/apache-tomcat/default/bin/catalina.sh start
   }
