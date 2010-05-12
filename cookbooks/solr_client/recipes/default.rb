@@ -3,7 +3,7 @@
 # Recipe:: default
 #
 APP_NAME = node[:applications].keys.first
-SOLR_ENDPOINT = " http://#{node[:utility_instances].find {|v| v[:name].include?("cass")}}:9090/solr"
+SOLR_ENDPOINT = " http://#{(node[:utility_instances].find {|v| v[:name].include?("cass")})[:hostname]}:9090/solr"
 
 template "/data/#{APP_NAME}/current/config/solr.yml" do
   owner node[:owner_name]
