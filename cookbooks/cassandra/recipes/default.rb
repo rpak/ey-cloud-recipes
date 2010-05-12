@@ -89,6 +89,7 @@ template "/opt/cassandra/default/conf/storage-conf.xml" do
 end
 
 execute "start-cassandra" do
+  returns 1
   user node[:owner_name]
   command %Q{
     /opt/cassandra/default/bin/cassandra --host localhost --port 9160
