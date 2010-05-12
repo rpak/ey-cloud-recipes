@@ -3,16 +3,17 @@
 # Recipe:: default
 #
 
-TOMCAT_VERSION = "6.0.18"
+TOMCAT_VERSION = "6.0.26"
 TOMCAT_INSTALL_DIR = "apache-tomcat-#{TOMCAT_VERSION}"
 TOMCAT_INSTALL_FILE = "#{TOMCAT_INSTALL_DIR}.tar.gz"
 TOMCAT_INSTALL_FILE_CHECKSUM = "f9eafa9bfd620324d1270ae8f09a8c89"
 
 include_recipe "java"
 
-package "dev-java/tomcat-native" do
-  action :install
-end
+# TODO: Add APR support, this package installs an old version not suitable for tomcat 6.0.26+
+#package "dev-java/tomcat-native" do
+#  action :install
+#end
 
 #package "www-servers/tomcat" do
 #  action :install
