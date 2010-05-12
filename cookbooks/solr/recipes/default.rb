@@ -6,7 +6,7 @@
 APP_NAME = node[:applications].keys.first
 SOLR_VERSION = "1.4.0"
 SOLR_INSTALL_DIR = "apache-solr-#{SOLR_VERSION}"
-SOLR_INSTALL_FILE = "#{TOMCAT_INSTALL_DIR}.tgz"
+SOLR_INSTALL_FILE = "#{SOLR_INSTALL_DIR}.tgz"
 SOLR_INSTALL_FILE_CHECKSUM = "1cc3783316aa1f95ba5e250a4c1d0451"
 
 include_recipe "tomcat"
