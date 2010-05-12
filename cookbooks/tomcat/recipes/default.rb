@@ -10,9 +10,9 @@ TOMCAT_INSTALL_FILE_CHECKSUM = "f9eafa9bfd620324d1270ae8f09a8c89"
 
 include_recipe "java"
 
-package "dev-java/tomcat-native" do
-  action :install
-end
+#package "dev-java/tomcat-native" do
+#  action :install
+#end
 
 package "www-servers/tomcat" do
   action :install
@@ -56,6 +56,6 @@ end
 
 execute "start-tomcat" do
   command %Q{
-    sudo /etc/init.d/tomcat-6 start
+    /etc/init.d/tomcat-6 start
   }
 end
