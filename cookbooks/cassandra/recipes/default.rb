@@ -20,26 +20,25 @@ remote_file "/tmp/#{CASSANDRA_INSTALL_FILE}" do
   checksum CASSANDRA_INSTALL_FILE_CHECKSUM
 end
 
+directory "/opt/cassandra" do
+  owner node[:owner_name]
+  group node[:owner_name]
+  mode "0740"
+  action :create
+end
+
 execute "unarchive-and-install-cassandra" do
-  cwd "/opt"
+  cwd "/opt/cassandra"
   user node[:owner_name]
   command %Q{
     tar -zxf /tmp/#{CASSANDRA_INSTALL_FILE}
   }
-  creates "/opt/#{CASSANDRA_INSTALL_FILE}"
+  creates "/opt/cassandra/#{CASSANDRA_INSTALL_FILE}"
 end
 
-link "/opt/cassandra" do
-  to "/opt/#{CASSANDRA_INSTALL_DIR}"
+link "/opt/cassandra/default" do
+  to "/opt/cassandra/#{CASSANDRA_INSTALL_DIR}"
 end
-#
-#execute "ensure-permissions-for-cassandra" do
-#  cwd "/opt"
-#  command %Q{
-#    chown -R #{node[:owner_name]} cassandra/
-#  }
-#  creates "/opt/#{CASSANDRA_INSTALL_FILE}"
-#end
 
 directory "/data/cassandra" do
   owner node[:owner_name]
@@ -69,7 +68,14 @@ directory "/var/log/cassandra" do
   action :create
 end
 
-template "/opt/cassandra/conf/storage-conf.xml" do
+execute "stop-cassandra" do
+  command %Q{
+    kill `ps -ef | grep cassandra | grep -v grep | awk '{print $2}'`
+  }
+  action :nothing
+end
+
+template "/opt/cassandra/default/conf/storage-conf.xml" do
   owner node[:owner_name]
   group node[:owner_name]
   source 'storage-conf.xml.erb'
@@ -78,19 +84,11 @@ template "/opt/cassandra/conf/storage-conf.xml" do
     :env_name => node[:environment][:name],
     :utility_instance => node[:utility_instances].find {|v| v[:name] == NODE_NAME}
   })
-#  notifies :run, resources(:execute => "stop-cassandra"), :immediately
-end
-
-execute "stop-cassandra" do
-  command %Q{
-    kill `ps -ef | grep cassandra | grep -v grep | awk '{print $2}'`
-  }
-  action :nothing
+  notifies :run, resources(:execute => "stop-cassandra"), :immediately
 end
 
 execute "start-cassandra" do
-  returns 1
-#  user node[:owner_name]
+  user node[:owner_name]
   command %Q{
     /opt/cassandra/bin/cassandra --host localhost --port 9160
   }
