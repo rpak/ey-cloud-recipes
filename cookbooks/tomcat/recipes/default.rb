@@ -29,7 +29,7 @@ end
 directory "/opt/apache-tomcat" do
   owner node[:owner_name]
   group node[:owner_name]
-  mode "0640"
+  mode "0740"
   action :create
 end
 
