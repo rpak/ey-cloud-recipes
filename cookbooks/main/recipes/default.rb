@@ -6,7 +6,7 @@ end
 
 if node[:instance_role] == 'util' && (node[:name] != nil && node[:name].include?("cass"))
   require_recipe 'cassandra'
-  require_recipe 'tomcat'
+  require_recipe 'solr'
 end
 
 if node[:instance_role].include?("app")
