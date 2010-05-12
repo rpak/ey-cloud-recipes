@@ -60,7 +60,7 @@ end
 execute "stop-tomcat" do
   returns 1
   command %Q{
-    /opt/apache-tomcat/default/bin/catalina.sh stop -force
+    /opt/apache-tomcat/default/bin/catalina.sh stop
   }
   action :nothing
 end
