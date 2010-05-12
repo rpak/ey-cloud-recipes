@@ -92,7 +92,7 @@ execute "start-cassandra" do
   returns 1
   user node[:owner_name]
   command %Q{
-    /opt/cassandra/default/bin/cassandra --host localhost --port 9160
+    /opt/cassandra/default/bin/cassandra
   }
   not_if "pgrep -f org.apache.cassandra.service.CassandraDaemon"
 end
