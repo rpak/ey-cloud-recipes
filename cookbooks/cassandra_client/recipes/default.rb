@@ -4,6 +4,13 @@
 #
 APP_NAME = node[:applications].keys.first
 
+execute "restart-servers" do
+  command %Q{
+    echo "sleep 20 && monit restart all -g #{APP_NAME}" | at now
+  }
+  action :nothing
+end
+
 template "/data/#{APP_NAME}/current/config/cassandra.yml" do
   owner node[:owner_name]
   group node[:owner_name]
@@ -13,12 +20,5 @@ template "/data/#{APP_NAME}/current/config/cassandra.yml" do
     :env_type => node[:environment][:framework_env],
     :cassandra_instance => node[:utility_instances].find {|v| v[:name].include?("cass")}
   })
-  # notifies :run, resources(:execute => "restart-servers")
-end
-
-execute "restart-servers" do
-  command %Q{
-    monit restart all -g #{APP_NAME}
-  }
-  action :nothing
+  notifies :run, resources(:execute => "restart-servers")
 end
