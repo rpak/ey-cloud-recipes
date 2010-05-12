@@ -77,7 +77,7 @@ template "/opt/cassandra/conf/storage-conf.xml" do
     :env_name => node[:environment][:name],
     :utility_instance => node[:utility_instances].find {|v| v[:name] == NODE_NAME}
   })
-  notifies :run, resources(:execute => "stop-cassandra"), :immediately
+#  notifies :run, resources(:execute => "stop-cassandra"), :immediately
 end
 
 execute "stop-cassandra" do
