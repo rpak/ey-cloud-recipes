@@ -51,14 +51,9 @@ execute "install-solr" do
   creates "/opt/apache-tomcat/default/webapps/solr"
 end
 
-execute "set-solr-home" do
-  command %Q{
-    export JAVA_OPTS="$JAVA_OPTS -Dsolr.data.dir=/data/solr/data"
-  }
-end
-
 execute "stop-tomcat" do
   returns 1
+  user node[:owner_name]
   command %Q{
     /opt/apache-tomcat/default/bin/catalina.sh stop
   }

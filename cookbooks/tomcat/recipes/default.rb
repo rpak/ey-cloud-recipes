@@ -59,6 +59,7 @@ template "/opt/apache-tomcat/default/conf/server.xml" do
 end
 
 execute "start-tomcat" do
+  user node[:owner_name]
   command %Q{
     /opt/apache-tomcat/default/bin/startup.sh
   }
