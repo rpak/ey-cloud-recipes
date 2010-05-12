@@ -53,6 +53,18 @@ execute "ensure-permissions-for-tomcat" do
   creates "/opt/apache-tomcat/#{TOMCAT_INSTALL_DIR}"
 end
 
+template "/opt/apache-tomcat/default/conf/server.xml" do
+  owner node[:owner_name]
+  group node[:owner_name]
+  source 'server.xml.erb'
+  variables({
+    :shutdown_port => "8005",
+    :port => "9090",
+    :secure_port => "9443",
+    :ajp_port => "9009"
+  })
+end
+
 execute "start-tomcat" do
   command %Q{
     /opt/apache-tomcat/default/bin/startup.sh
