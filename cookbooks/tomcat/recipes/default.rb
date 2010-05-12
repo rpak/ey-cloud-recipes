@@ -35,6 +35,7 @@ end
 
 execute "unarchive-and-install-tomcat" do
   cwd "/opt/apache-tomcat"
+  user node[:owner_name]
   command %Q{
     tar -zxf /tmp/#{TOMCAT_INSTALL_FILE}
   }
@@ -43,14 +44,6 @@ end
 
 link "/opt/apache-tomcat/default" do
   to "/opt/apache-tomcat/#{TOMCAT_INSTALL_DIR}"
-end
-
-execute "ensure-permissions-for-tomcat" do
-  cwd "/opt"
-  command %Q{
-    chown -R #{node[:owner_name]} apache-tomcat/
-  }
-  creates "/opt/apache-tomcat/#{TOMCAT_INSTALL_DIR}"
 end
 
 template "/opt/apache-tomcat/default/conf/server.xml" do

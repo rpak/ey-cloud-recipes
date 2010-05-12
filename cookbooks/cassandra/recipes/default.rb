@@ -22,6 +22,7 @@ end
 
 execute "unarchive-and-install-cassandra" do
   cwd "/opt"
+  user node[:owner_name]
   command %Q{
     tar -zxf /tmp/#{CASSANDRA_INSTALL_FILE}
   }
@@ -31,14 +32,14 @@ end
 link "/opt/cassandra" do
   to "/opt/#{CASSANDRA_INSTALL_DIR}"
 end
-
-execute "ensure-permissions-for-cassandra" do
-  cwd "/opt"
-  command %Q{
-    chown -R #{node[:owner_name]} cassandra/
-  }
-  creates "/opt/#{CASSANDRA_INSTALL_FILE}"
-end
+#
+#execute "ensure-permissions-for-cassandra" do
+#  cwd "/opt"
+#  command %Q{
+#    chown -R #{node[:owner_name]} cassandra/
+#  }
+#  creates "/opt/#{CASSANDRA_INSTALL_FILE}"
+#end
 
 directory "/data/cassandra" do
   owner node[:owner_name]
