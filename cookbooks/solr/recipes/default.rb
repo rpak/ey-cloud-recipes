@@ -52,7 +52,6 @@ execute "install-solr" do
 end
 
 execute "stop-tomcat" do
-  returns 1
   user node[:owner_name]
   command %Q{
     /opt/apache-tomcat/default/bin/catalina.sh stop
