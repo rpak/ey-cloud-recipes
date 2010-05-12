@@ -10,8 +10,8 @@ if node[:instance_role] == 'util' && (node[:name] != nil && node[:name].include?
 end
 
 if node[:instance_role].include?("app") || (node[:name] != nil && node[:name].include?("job"))
-  require_recipe 'cassandra_client'
   require_recipe 'solr_client'
+  require_recipe 'cassandra_client'
 end
 
 #require_recipe 'paperclip'
