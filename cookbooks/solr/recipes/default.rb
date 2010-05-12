@@ -69,13 +69,19 @@ template "/opt/apache-tomcat/default/conf/Catalina/localhost/solr.xml" do
   })
 end
 
-template "/data/#{APP_NAME}/current/config/solr/solrconfig.xml" do
+template "/data/#{APP_NAME}/current/config/solr/conf/solrconfig.xml" do
   owner node[:owner_name]
   group node[:owner_name]
   source 'solrconfig.xml.erb'
   variables({
     :data_dir => "/data/solr/data"
   })
+end
+
+template "/data/#{APP_NAME}/current/config/solr/conf/logging.properties" do
+  owner node[:owner_name]
+  group node[:owner_name]
+  source 'logging.properties.erb'
   notifies :run, resources(:execute => "stop-tomcat"), :immediately
 end
 
