@@ -13,7 +13,7 @@ template "/data/#{APP_NAME}/current/config/cassandra.yml" do
     :env_type => node[:environment][:framework_env],
     :cassandra_instance => node[:utility_instances].find {|v| v[:name].include?("cass")}
   })
-  notifies :run, resources(:execute => "restart-servers")
+  # notifies :run, resources(:execute => "restart-servers")
 end
 
 execute "restart-servers" do
