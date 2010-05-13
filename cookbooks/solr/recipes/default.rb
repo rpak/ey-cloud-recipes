@@ -81,7 +81,7 @@ template "/data/#{APP_NAME}/current/config/solr/conf/logging.properties" do
   owner node[:owner_name]
   group node[:owner_name]
   source 'logging.properties.erb'
-  notifies :run, resources(:execute => "stop-tomcat"), :immediately
+#  notifies :run, resources(:execute => "stop-tomcat"), :immediately
 end
 
 execute "start-tomcat" do
