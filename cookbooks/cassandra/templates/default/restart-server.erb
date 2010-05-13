@@ -6,6 +6,6 @@ then
   sleep 5
 fi
 
-exec /opt/cassandra/default/bin/cassandra
+/opt/cassandra/default/bin/cassandra > /var/log/cassandra/startup
 
-return 1
+exit 1
