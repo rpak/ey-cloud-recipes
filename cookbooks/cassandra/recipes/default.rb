@@ -68,7 +68,7 @@ directory "/var/log/cassandra" do
   action :create
 end
 
-script "restart-cassandra" do
+execute "restart-cassandra" do
   returns 1
   command %Q{
     /opt/cassandra/default/bin/restart-server
