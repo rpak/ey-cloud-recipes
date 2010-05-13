@@ -19,17 +19,17 @@ end
 if node[:name] != nil && node[:name].include?("job")
   cron "br-jobs-aggregate" do
     minute "/5"
-    action :delete
+    owner node[:owner_name]
     command "cd /data/#{APP_NAME}/current && rake br:jobs:aggregate"
   end
   cron "br-jobs-solr" do
     minute "/2"
-    action :delete
+    owner node[:owner_name]
     command "cd /data/#{APP_NAME}/current && rake br:jobs:solr"
   end
   cron "br-jobs-blast" do
     minute "/2"
-    action :delete
+    owner node[:owner_name]
     command "cd /data/#{APP_NAME}/current && rake br:jobs:blast"
   end
 end
