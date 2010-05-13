@@ -69,11 +69,11 @@ directory "/var/log/cassandra" do
 end
 
 execute "restart-cassandra" do
-  returns 1
+  returns nil
   user node[:owner_name]
   timeout 10
   command %Q{
-    /opt/cassandra/default/bin/restart-server && return 1
+    /opt/cassandra/default/bin/restart-server
   }
   action :nothing
 end
