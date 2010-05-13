@@ -71,6 +71,7 @@ end
 execute "restart-cassandra" do
   returns 1
   user node[:owner_name]
+  timeout 10
   command %Q{
     /opt/cassandra/default/bin/restart-server
   }
