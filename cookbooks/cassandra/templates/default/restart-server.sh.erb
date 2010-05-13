@@ -1,0 +1,11 @@
+pid=`pgrep -f cassandra`
+
+if [ $? -ne 1 ]
+then
+  kill $pid
+  sleep 5
+fi
+
+exec /opt/cassandra/default/bin/cassandra
+
+exit 1

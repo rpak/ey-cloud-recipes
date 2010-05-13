@@ -68,12 +68,19 @@ directory "/var/log/cassandra" do
   action :create
 end
 
-execute "stop-cassandra" do
+script "restart-cassandra" do
   returns 1
   command %Q{
-    kill `ps -ef | grep cassandra | grep -v grep | awk '{print $2}'` && return 1
+    /opt/cassandra/default/bin/restart-server
   }
   action :nothing
+end
+
+template "/opt/cassandra/default/bin/restart-server.sh" do
+  owner node[:owner_name]
+  group node[:owner_name]
+  mode "0740"
+  source 'restart-server.sh.erb'
 end
 
 template "/opt/cassandra/default/conf/storage-conf.xml" do
@@ -85,14 +92,6 @@ template "/opt/cassandra/default/conf/storage-conf.xml" do
     :env_name => node[:environment][:name],
     :utility_instance => node[:utility_instances].find {|v| v[:name] == NODE_NAME}
   })
-  notifies :run, resources(:execute => "stop-cassandra"), :immediately
+  notifies :run, resources(:execute => "restart-cassandra"), :immediately
 end
 
-execute "start-cassandra" do
-  returns 1
-  user node[:owner_name]
-  command %Q{
-    /opt/cassandra/default/bin/cassandra
-  }
-  not_if "pgrep -f org.apache.cassandra.service.CassandraDaemon"
-end
