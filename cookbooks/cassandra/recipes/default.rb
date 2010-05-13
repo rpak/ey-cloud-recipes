@@ -94,6 +94,16 @@ template "/opt/cassandra/default/conf/storage-conf.xml" do
     :env_name => node[:environment][:name],
     :utility_instance => node[:utility_instances].find {|v| v[:name] == NODE_NAME}
   })
-  notifies :run, resources(:execute => "restart-cassandra"), :immediately
+#  notifies :run, resources(:execute => "restart-cassandra"), :immediately
+end
+
+execute "start-cassandra" do
+  returns 1
+  user node[:owner_name]
+  timeout 10
+  command %Q{
+    /opt/cassandra/default/bin/cassandra
+  }
+  not_if "pgrep -f cassandra"
 end
 
