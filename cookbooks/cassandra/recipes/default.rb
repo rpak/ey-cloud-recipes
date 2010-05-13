@@ -69,7 +69,7 @@ directory "/var/log/cassandra" do
 end
 
 execute "restart-cassandra" do
-  returns nil
+  returns 1
   user node[:owner_name]
   timeout 10
   command %Q{
