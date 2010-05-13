@@ -3,7 +3,6 @@ pid=`pgrep -f cassandra`
 if [ $? -ne 1 ]
 then
   kill $pid
-  sleep 5
 fi
 
 /opt/cassandra/default/bin/cassandra > /var/log/cassandra/startup
