@@ -73,7 +73,7 @@ execute "restart-cassandra" do
   user node[:owner_name]
   timeout 10
   command %Q{
-    /opt/cassandra/default/bin/restart-server
+    /opt/cassandra/default/bin/restart-server && return 1
   }
   action :nothing
 end
