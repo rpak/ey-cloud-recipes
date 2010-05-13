@@ -4,6 +4,8 @@ execute "testing" do
   }
 end
 
+APP_NAME = node[:applications].keys.first
+
 if node[:instance_role] == 'util' && (node[:name] != nil && node[:name].include?("cass"))
   require_recipe 'cassandra'
   require_recipe 'solr'
@@ -14,23 +16,17 @@ if node[:instance_role].include?("app") || (node[:name] != nil && node[:name].in
   require_recipe 'cassandra_client'
 end
 
-#require_recipe 'paperclip'
-#require_recipe 'google_analytics'
-#require_recipe 'ssmtp'
-#require_recipe 'delayed_job'
-# require_recipe 's3fs'
-
-# uncomment if you want to run couchdb recipe
-# require_recipe "couchdb"
-
-# uncomment to turn use the MBARI ruby patches for decreased memory usage and better thread/continuationi performance
-# require_recipe "mbari-ruby"
-
-# uncomment to turn on thinking sphinx 
-# require_recipe "thinking_sphinx"
-
-# uncomment to turn on ultrasphinx 
-# require_recipe "ultrasphinx"
-
-#uncomment to turn on memcached
-# require_recipe "memcached"
+if node[:name] != nil && node[:name].include?("job")
+  cron "br-jobs-aggregate" do
+    minute "/5"
+    command "cd /data/#{APP_NAME}/current && rake br:jobs:aggregate"
+  end
+  cron "br-jobs-solr" do
+    minute "/2"
+    command "cd /data/#{APP_NAME}/current && rake br:jobs:solr"
+  end
+  cron "br-jobs-blast" do
+    minute "/2"
+    command "cd /data/#{APP_NAME}/current && rake br:jobs:blast"
+  end
+end
