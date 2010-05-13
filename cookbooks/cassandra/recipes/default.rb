@@ -76,11 +76,11 @@ execute "restart-cassandra" do
   action :nothing
 end
 
-template "/opt/cassandra/default/bin/restart-server.sh" do
+template "/opt/cassandra/default/bin/restart-server" do
   owner node[:owner_name]
   group node[:owner_name]
   mode "0740"
-  source 'restart-server.sh.erb'
+  source 'restart-server.erb'
 end
 
 template "/opt/cassandra/default/conf/storage-conf.xml" do
