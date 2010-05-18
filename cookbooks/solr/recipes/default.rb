@@ -80,6 +80,7 @@ template "/data/#{APP_NAME}/current/config/solr/conf/solrconfig.xml" do
   source 'solrconfig.xml.erb'
   variables({
     :data_dir => "/data/solr/data",
+    :master => node[:name] == master_solr_node[:name],
     :master_solr_node => master_solr_node
   })
 end
