@@ -9,6 +9,12 @@ SOLR_INSTALL_DIR = "apache-solr-#{SOLR_VERSION}"
 SOLR_INSTALL_FILE = "#{SOLR_INSTALL_DIR}.tgz"
 SOLR_INSTALL_FILE_CHECKSUM = "1cc3783316aa1f95ba5e250a4c1d0451"
 
+master_solr_node = node[:utility_instances].find {|v| v[:name] == "cass1"}
+if node[:name] == master_solr_node[:name]
+
+end
+
+
 include_recipe "tomcat"
 
 remote_file "/tmp/#{SOLR_INSTALL_FILE}" do
@@ -73,7 +79,8 @@ template "/data/#{APP_NAME}/current/config/solr/conf/solrconfig.xml" do
   group node[:owner_name]
   source 'solrconfig.xml.erb'
   variables({
-    :data_dir => "/data/solr/data"
+    :data_dir => "/data/solr/data",
+    :master_solr_node => master_solr_node
   })
 end
 
