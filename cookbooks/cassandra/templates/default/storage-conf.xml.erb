@@ -1,6 +1,6 @@
 <Storage>
   <ClusterName><%= @app_name %> cluster</ClusterName>
-  <AutoBootstrap>false</AutoBootstrap>
+  <AutoBootstrap><%= @auto_bootstrap %></AutoBootstrap>
 
   <Keyspaces>
     <Keyspace Name="<%= @env_name %>">
@@ -29,24 +29,24 @@
   </DataFileDirectories>
 
   <Seeds>
-      <Seed><%= @utility_instance[:hostname] %></Seed>
+      <Seed><%= @first_cassandra_instance[:hostname] %></Seed>
   </Seeds>
 
   <RpcTimeoutInMillis>10000</RpcTimeoutInMillis>
 
   <CommitLogRotationThresholdInMB>128</CommitLogRotationThresholdInMB>
 
-  <ListenAddress><%= @utility_instance[:hostname] %></ListenAddress>
+  <ListenAddress><%= @current_instance[:hostname] %></ListenAddress>
 
   <StoragePort>7000</StoragePort>
 
-  <ThriftAddress><%= @utility_instance[:hostname] %></ThriftAddress>
+  <ThriftAddress><%= @current_instance[:hostname] %></ThriftAddress>
 
   <ThriftPort>9160</ThriftPort>
 
   <ThriftFramedTransport>false</ThriftFramedTransport>
 
-  <DiskAccessMode>auto</DiskAccessMode>
+  <DiskAccessMode>mmap</DiskAccessMode>
 
   <RowWarningThresholdInMB>512</RowWarningThresholdInMB>
 
@@ -58,11 +58,11 @@
 
   <ColumnIndexSizeInKB>64</ColumnIndexSizeInKB>
 
-  <MemtableThroughputInMB>64</MemtableThroughputInMB>
+  <MemtableThroughputInMB>256</MemtableThroughputInMB>
 
-  <BinaryMemtableThroughputInMB>256</BinaryMemtableThroughputInMB>
+  <BinaryMemtableThroughputInMB>1024</BinaryMemtableThroughputInMB>
 
-  <MemtableOperationsInMillions>0.3</MemtableOperationsInMillions>
+  <MemtableOperationsInMillions>1.0</MemtableOperationsInMillions>
 
   <MemtableFlushAfterMinutes>60</MemtableFlushAfterMinutes>
 

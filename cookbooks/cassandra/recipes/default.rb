@@ -10,6 +10,9 @@ CASSANDRA_INSTALL_DIR = "apache-cassandra-#{CASSANDRA_VERSION}"
 CASSANDRA_INSTALL_FILE = "#{CASSANDRA_INSTALL_DIR}-bin.tar.gz"
 CASSANDRA_INSTALL_FILE_CHECKSUM = "6aa1764f76e26fbc9d62b59e2f6a9ab4"
 
+first_cassandra_instance = node[:utility_instances].find {|v| v[:name] == "cass1"}
+current_cassandra_instance = node[:utility_instances].find {|v| v[:name] == NODE_NAME}
+
 include_recipe "java"
 
 remote_file "/tmp/#{CASSANDRA_INSTALL_FILE}" do
@@ -92,9 +95,17 @@ template "/opt/cassandra/default/conf/storage-conf.xml" do
   variables({
     :app_name => APP_NAME,
     :env_name => node[:environment][:name],
-    :utility_instance => node[:utility_instances].find {|v| v[:name] == NODE_NAME}
+    :first_instance => first_cassandra_instance,
+    :current_instance => current_cassandra_instance,
+    :auto_bootstrap => first_cassandra_instance[:hostname] != current_cassandra_instance[:hostname]
   })
 #  notifies :run, resources(:execute => "restart-cassandra"), :immediately
+end
+
+template "/opt/cassandra/default/bin/cassandra.in.sh" do
+  owner node[:owner_name]
+  group node[:owner_name]
+  source 'cassandra.in.sh.erb'
 end
 
 execute "start-cassandra" do
