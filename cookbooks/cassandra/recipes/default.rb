@@ -95,8 +95,8 @@ template "/opt/cassandra/default/conf/storage-conf.xml" do
   variables({
     :app_name => APP_NAME,
     :env_name => node[:environment][:name],
-    :first_instance => first_cassandra_instance,
-    :current_instance => current_cassandra_instance,
+    :first_cassandra_instance => first_cassandra_instance,
+    :current_cassandra_instance => current_cassandra_instance,
     :auto_bootstrap => first_cassandra_instance[:hostname] != current_cassandra_instance[:hostname]
   })
 #  notifies :run, resources(:execute => "restart-cassandra"), :immediately

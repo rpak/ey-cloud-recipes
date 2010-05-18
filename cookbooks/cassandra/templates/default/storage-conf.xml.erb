@@ -36,11 +36,11 @@
 
   <CommitLogRotationThresholdInMB>128</CommitLogRotationThresholdInMB>
 
-  <ListenAddress><%= @current_instance[:hostname] %></ListenAddress>
+  <ListenAddress><%= @current_cassandra_instance[:hostname] %></ListenAddress>
 
   <StoragePort>7000</StoragePort>
 
-  <ThriftAddress><%= @current_instance[:hostname] %></ThriftAddress>
+  <ThriftAddress><%= @current_cassandra_instance[:hostname] %></ThriftAddress>
 
   <ThriftPort>9160</ThriftPort>
 
