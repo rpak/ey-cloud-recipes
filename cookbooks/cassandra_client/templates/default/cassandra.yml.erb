@@ -1,6 +1,6 @@
 <%= @env_type %>:
   home: ":"
-  servers: "<%= @cassandra_instance[:hostname] %>:9160"
+  servers: "<%= @servers %>"
   keyspace: "<%= @env_name %>"
   timeout: 3
   retries: 2
