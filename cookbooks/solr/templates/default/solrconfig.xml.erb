@@ -489,7 +489,7 @@
     </lst>
   <% else %>
     <lst name="slave">
-      <str name="masterUrl">http://<%= @master_solr_node[:hostname] %>:8983/solr/replication</str>
+      <str name="masterUrl">http://<%= @master_solr_node[:hostname] %>:9090/solr/replication</str>
       <str name="pollInterval">00:00:60</str>
     </lst>
    <% end %>
