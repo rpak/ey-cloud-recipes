@@ -6,7 +6,7 @@ APP_NAME = node[:applications].keys.first
 
 execute "restart-servers" do
   command %Q{
-    echo "sleep 20 && monit restart all -g #{APP_NAME}" | at now
+    echo "sudo monit restart all -g #{APP_NAME}" | at now
   }
   action :nothing
 end
