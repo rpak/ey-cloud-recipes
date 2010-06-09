@@ -64,6 +64,9 @@ template "/opt/apache-tomcat/default/bin/setenv.sh" do
   group node[:owner_name]
   mode "0740"
   source 'setenv.sh.erb'
+  variables({
+    :env_type => node[:environment][:framework_env]
+  })
 end
 
 directory "/opt/apache-tomcat/default/newrelic" do
@@ -84,9 +87,6 @@ template "/opt/apache-tomcat/default/newrelic/newrelic.yml" do
   owner node[:owner_name]
   group node[:owner_name]
   source 'newrelic.yml.erb'
-  variables({
-    :env_type => node[:environment][:framework_env]
-  })
 end
 
 execute "start-tomcat" do
