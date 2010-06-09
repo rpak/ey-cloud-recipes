@@ -73,12 +73,12 @@ directory "/opt/apache-tomcat/default/newrelic" do
   action :create
 end
 
-remote_file "/opt/apache-tomcat/default/newrelic/newrelic.jar" do
-  source "newrelic.jar"
-  owner node[:owner_name]
-  group node[:owner_name]
-  mode 0755
-end
+#remote_file "/opt/apache-tomcat/default/newrelic/newrelic.jar" do
+#  source "newrelic.jar"
+#  owner node[:owner_name]
+#  group node[:owner_name]
+#  mode 0755
+#end
 
 template "/opt/apache-tomcat/default/newrelic/newrelic.yml" do
   owner node[:owner_name]
