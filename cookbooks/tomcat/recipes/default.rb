@@ -84,6 +84,9 @@ template "/opt/apache-tomcat/default/newrelic/newrelic.yml" do
   owner node[:owner_name]
   group node[:owner_name]
   source 'newrelic.yml.erb'
+  variables({
+    :env_type => node[:environment][:framework_env],
+  })
 end
 
 execute "start-tomcat" do

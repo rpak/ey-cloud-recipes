@@ -89,6 +89,9 @@ template "/opt/cassandra/default/newrelic/newrelic.yml" do
   owner node[:owner_name]
   group node[:owner_name]
   source 'newrelic.yml.erb'
+  variables({
+    :env_type => node[:environment][:framework_env],
+  })
 end
 
 execute "restart-cassandra" do
