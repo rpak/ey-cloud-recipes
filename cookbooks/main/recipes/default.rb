@@ -7,8 +7,16 @@ end
 APP_NAME = node[:applications].keys.first
 
 if node[:instance_role] == 'util' && (node[:name] != nil && node[:name].include?("cass"))
+
+  package 'net-proxy/haproxy' do
+    action :install
+  end
+
   require_recipe 'cassandra'
   require_recipe 'solr'
+
+
+
 end
 
 if node[:instance_role].include?("app") || (node[:name] != nil && node[:name].include?("job"))
