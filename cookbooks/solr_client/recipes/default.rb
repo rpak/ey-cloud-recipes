@@ -3,7 +3,7 @@
 # Recipe:: default
 #
 APP_NAME = node[:applications].keys.first
-SOLR_ENDPOINT = "http://localhost:9090/solr"
+SOLR_ENDPOINT = "http://127.0.0.1:9090/solr"
 
 solr_nodes = node[:utility_instances].find_all {|v| v[:name].include?("cass")}
 
