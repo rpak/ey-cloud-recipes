@@ -12,7 +12,7 @@ DEFAULT_KEY = '396ccb0ba3d5e5c2d3bbd9f05241ba649d106156'
 # Rails
 #
 if node[:instance_role].include?("app")
-  template "/data/#{APP_NAME}/newrelic.yml" do
+  template "/data/#{APP_NAME}/current/config/newrelic.yml" do
     owner node[:owner_name]
     group node[:owner_name]
     source 'newrelic.yml.erb'
