@@ -8,7 +8,7 @@ execute "restart-nginx" do
   action :nothing
 end
 
-if node[:instance_role].include?("app") # && (node[:environment][:framework_env] == 'production')
+if node[:instance_role].include?("app") && (node[:environment][:framework_env] == 'production')
   template "/etc/nginx/servers/#{APP_NAME}.rewrites" do
     owner node[:owner_name]
     group node[:owner_name]
