@@ -22,6 +22,7 @@ end
 if node[:instance_role].include?("app") || (node[:name] != nil && node[:name].include?("job"))
   require_recipe 'solr_client'
   require_recipe 'cassandra_client'
+  require_recipe 'nginx'
 end
 
 if node[:name] != nil && node[:name].include?("job")

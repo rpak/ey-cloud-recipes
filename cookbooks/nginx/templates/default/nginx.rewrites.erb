@@ -1,0 +1,5 @@
+# Created on <%= Time.new.inspect %>
+
+if ($host !~ "^www\.<%= @app_name %>\.com$") {
+  rewrite ^(.*)$ http://www.<%= @app_name %>.com$1 permanent;
+}
