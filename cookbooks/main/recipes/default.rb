@@ -6,6 +6,8 @@ end
 
 APP_NAME = node[:applications].keys.first
 
+require_recipe 'newrelic'
+
 if node[:instance_role] == 'util' && (node[:name] != nil && node[:name].include?("cass"))
 
   package 'net-proxy/haproxy' do
@@ -14,8 +16,6 @@ if node[:instance_role] == 'util' && (node[:name] != nil && node[:name].include?
 
   require_recipe 'cassandra'
   require_recipe 'solr'
-
-
 
 end
 

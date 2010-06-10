@@ -52,5 +52,5 @@ JVM_OPTS=" \
         -Dcom.sun.management.jmxremote.port=8080 \
         -Dcom.sun.management.jmxremote.ssl=false \
         -Dcom.sun.management.jmxremote.authenticate=false \
-        -javaagent:/opt/cassandra/default/newrelic/newrelic.jar \
+        -javaagent:/opt/cassandra/newrelic/newrelic.jar \
         -Dnewrelic.environment=<%= @env_type %>"

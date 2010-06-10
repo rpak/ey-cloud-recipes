@@ -69,26 +69,6 @@ template "/opt/apache-tomcat/default/bin/setenv.sh" do
   })
 end
 
-directory "/opt/apache-tomcat/default/newrelic" do
-  owner node[:owner_name]
-  group node[:owner_name]
-  mode "0740"
-  action :create
-end
-
-remote_file "/opt/apache-tomcat/default/newrelic/newrelic.jar" do
-  source "newrelic.jar"
-  owner node[:owner_name]
-  group node[:owner_name]
-  mode 0755
-end
-
-template "/opt/apache-tomcat/default/newrelic/newrelic.yml" do
-  owner node[:owner_name]
-  group node[:owner_name]
-  source 'newrelic.yml.erb'
-end
-
 execute "start-tomcat" do
   user node[:owner_name]
   command %Q{

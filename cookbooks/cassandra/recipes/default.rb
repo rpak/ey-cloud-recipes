@@ -71,26 +71,6 @@ directory "/var/log/cassandra" do
   action :create
 end
 
-directory "/opt/cassandra/default/newrelic" do
-  owner node[:owner_name]
-  group node[:owner_name]
-  mode "0740"
-  action :create
-end
-
-remote_file "/opt/cassandra/default/newrelic/newrelic.jar" do
-  source "newrelic.jar"
-  owner node[:owner_name]
-  group node[:owner_name]
-  mode 0755
-end
-
-template "/opt/cassandra/default/newrelic/newrelic.yml" do
-  owner node[:owner_name]
-  group node[:owner_name]
-  source 'newrelic.yml.erb'
-end
-
 execute "restart-cassandra" do
   returns 1
   user node[:owner_name]
