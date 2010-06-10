@@ -16,8 +16,7 @@ if node[:instance_role].include?("app") # && (node[:environment][:framework_env]
     variables({
       :app_name => APP_NAME
     })
-    local true
-    # not_if "grep www /etc/nginx/servers/#{APP_NAME}.rewrites"
+    not_if "grep www /etc/nginx/servers/#{APP_NAME}.rewrites"
     notifies :run, resources(:execute => "restart-nginx")
   end
 end
