@@ -43,7 +43,7 @@ end
 cassandra_nodes.each_with_index do |n, i|
   execute "add-node" do
     command %Q{
-      echo 'server cass-#{i} #{n[:hostname]}:9160 check inter 5000 fastinter 1000 fall 1 weight 49' >> /etc/haproxy.cfg
+      echo '  server cass-#{i} #{n[:hostname]}:9160 check inter 5000 fastinter 1000 fall 1 weight #{i == 0 ? '50' : '49'}' >> /etc/haproxy.cfg
     }
     not_if "grep #{n[:hostname]}:9160 /etc/haproxy.cfg"
     notifies :run, resources(:execute => "reload-haproxy")
