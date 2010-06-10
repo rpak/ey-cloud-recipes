@@ -41,6 +41,11 @@ if node[:name] != nil && node[:name].include?("job")
     user node[:owner_name]
     command "cd /data/#{APP_NAME}/current && RAILS_ENV=#{node[:environment][:framework_env]} rake br:jobs:blast > /data/#{APP_NAME}/shared/log/br-jobs-blast.log"
   end
+  cron "br-jobs-facebook" do
+    minute "*/2"
+    user node[:owner_name]
+    command "cd /data/#{APP_NAME}/current && RAILS_ENV=#{node[:environment][:framework_env]} rake br:jobs:facebook > /data/#{APP_NAME}/shared/log/br-jobs-facebook.log"
+  end
 end
 
 # */5 * * * * cd /data/bitchroom/current && RAILS_ENV=staging rake br:jobs:aggregate > /data/bitchroom/shared/log/br-jobs-aggregate.log
