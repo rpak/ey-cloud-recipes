@@ -36,7 +36,7 @@ end
 
 execute "ha-proxy-add-cassandra" do
   command %Q{
-    echo '' >> /etc/haproxy.cfg && echo 'listen cassandra :9160' >> /etc/haproxy.cfg
+    echo '' >> /etc/haproxy.cfg && echo 'listen cassandra :9160' >> /etc/haproxy.cfg && echo '  mode tcp' >> /etc/haproxy.cfg
   }
   not_if 'grep cassandra /etc/haproxy.cfg' 
 end
