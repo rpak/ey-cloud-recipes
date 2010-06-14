@@ -10,8 +10,8 @@
       <ColumnFamily Name="UsersRelationships" ColumnType="Super" CompareWith="BytesType" CompareSubcolumnsWith="BytesType"/>
       <ColumnFamily Name="Timelines" CompareWith="TimeUUIDType" />
 
-      <ReplicaPlacementStrategy>org.apache.cassandra.locator.RackUnawareStrategy</ReplicaPlacementStrategy>
-      <ReplicationFactor>1</ReplicationFactor>
+      <ReplicaPlacementStrategy>org.apache.cassandra.locator.RackAwareStrategy</ReplicaPlacementStrategy>
+      <ReplicationFactor>2</ReplicationFactor>
       <EndPointSnitch>org.apache.cassandra.locator.EndPointSnitch</EndPointSnitch>
     </Keyspace>
   </Keyspaces>
