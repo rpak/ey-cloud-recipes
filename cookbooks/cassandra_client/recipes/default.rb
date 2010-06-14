@@ -19,8 +19,12 @@ execute "reload-haproxy" do
 end
 
 cassandra_nodes = node[:utility_instances].find_all {|v| v[:name].include?("cass")}
-# servers = (cassandra_nodes.collect{|n| n[:hostname] + ":9160"}).join ","
-servers = '127.0.0.1:9160'
+
+if (node[:name] != nil && node[:name].include?("job"))
+  servers = "#{node[:master_app_server][:private_dns_name]}:9160"
+else
+  servers = '127.0.0.1:9160'
+end
 
 template "/data/#{APP_NAME}/current/config/cassandra.yml" do
   owner node[:owner_name]

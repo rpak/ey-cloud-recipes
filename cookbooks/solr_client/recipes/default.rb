@@ -3,7 +3,12 @@
 # Recipe:: default
 #
 APP_NAME = node[:applications].keys.first
-SOLR_ENDPOINT = "http://127.0.0.1:9090/solr"
+
+if (node[:name] != nil && node[:name].include?("job"))
+  SOLR_ENDPOINT = "http://#{(node[:utility_instances].find {|v| v[:name].include?("cass1")})[:hostname]}:9090/solr"
+else
+  SOLR_ENDPOINT = "http://127.0.0.1:9090/solr"
+end
 
 solr_nodes = node[:utility_instances].find_all {|v| v[:name].include?("cass")}
 
