@@ -22,7 +22,7 @@ include_recipe "java"
 remote_file "/tmp/#{TOMCAT_INSTALL_FILE}" do
   owner node[:owner_name]
   group node[:owner_name]
-  source "http://apache.mirror.facebook.net/tomcat/tomcat-#{TOMCAT_VERSION.split(".").first}/v#{TOMCAT_VERSION}/bin/#{TOMCAT_INSTALL_FILE}"
+  source "http://archive.apache.org/dist/tomcat/tomcat-#{TOMCAT_VERSION.split(".").first}/v#{TOMCAT_VERSION}/bin/#{TOMCAT_INSTALL_FILE}"
   mode "0644"
   checksum TOMCAT_INSTALL_FILE_CHECKSUM
 end
